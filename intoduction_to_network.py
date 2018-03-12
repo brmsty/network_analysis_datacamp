@@ -33,3 +33,69 @@ for u, v, d in T.edges(data=True):
     
         # Set the weight to 1.1
         T.edge[u][v]['weight'] = 1.1
+        
+        
+###########################################################################
+#Visualizing using Matrix plots
+
+# Import nxviz
+import nxviz as nv
+
+# Create the MatrixPlot object: m
+m = nv.MatrixPlot(T)
+
+# Draw m to the screen
+m.draw()
+
+# Display the plot
+plt.show()
+
+# Convert T to a matrix format: A
+A = nx.to_numpy_matrix(T)
+
+# Convert A back to the NetworkX form as a directed graph: T_conv
+T_conv = nx.from_numpy_matrix(A, create_using=nx.DiGraph())
+
+# Check that the `category` metadata field is lost from each node
+for n, d in T_conv.nodes(data=True):
+    assert 'category' not in d.keys()
+    
+    
+#############################################################################
+#Visualising using Circos
+# Import necessary modules
+import matplotlib.pyplot as plt
+from nxviz import CircosPlot 
+
+# Create the CircosPlot object: c
+c = CircosPlot(T)
+
+# Draw c to the screen
+c.draw()
+
+# Display the plot
+plt.show()
+
+#############################################################################
+#Visualizing using Arc plots
+# Import necessary modules
+import matplotlib.pyplot as plt
+from nxviz import ArcPlot
+
+# Create the un-customized ArcPlot object: a
+a = ArcPlot(T)
+
+# Draw a to the screen
+a.draw()
+
+# Display the plot
+plt.show()
+
+# Create the customized ArcPlot object: a2
+a2 =ArcPlot(T,node_order='category',node_color='category')
+
+# Draw a2 to the screen
+a2.draw()
+
+# Display the plot
+plt.show()
